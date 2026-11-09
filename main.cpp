@@ -24,12 +24,24 @@ bool hitsAnyWall(const RectangleShape& s, const vector<RectangleShape>& walls) {
 
 int main () {
     
-    RenderWindow window(VideoMode({200,200}), "Boo");
+    RenderWindow window(VideoMode({400,400}), "Boo");
     RectangleShape character({20.f, 20.f});
     character.setFillColor(Color::Green);
     character.setOrigin({10.f, 10.f});
     character.setPosition({10.f, 10.f});
 
+    RectangleShape testBox({50.f, 50.f});
+    testBox.setOrigin({25.f, 25.f});
+    testBox.setPosition({200.f, 200.f});
+    testBox.setFillColor(Color::White);
+
+    // Chat area boxes
+    RectangleShape chatArea1({30.f, 100.f});
+    chatArea1.setOrigin({15.f, 50.f});
+    chatArea1.setPosition({215.f, 200.f});
+    chatArea1.setFillColor(Color::Red);
+
+    // Barrier Walls
     vector<RectangleShape> walls;
 
     RectangleShape wall1({30.f, 30.f});
@@ -92,6 +104,12 @@ int main () {
         window.clear();
 
         window.draw(character);
+
+        window.draw(chatArea1);
+
+        if (character.getGlobalBounds().findIntersection(chatArea1.getGlobalBounds())) {
+            window.draw(testBox);
+        }
         
         for (const auto& w: walls) window.draw(w);
 
